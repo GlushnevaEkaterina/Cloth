@@ -63,7 +63,7 @@ export const AddItemStudioPage: FC<IAddItemStudioPage> = () => {
         }
         iconRight={<ArrowLeftIcon color="#FFFFFF" />}
       />
-      {/* <FlatList
+      <FlatList
         data={data}
         numColumns={3}
         renderItem={({item}) => (
@@ -82,7 +82,7 @@ export const AddItemStudioPage: FC<IAddItemStudioPage> = () => {
             </TouchableOpacity>
           </View>
         )}
-      /> */}
+      />
     </View>
   )
 }

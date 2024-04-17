@@ -50,7 +50,7 @@ export const ProfilePage = () => {
         style={{paddingTop: 15, marginLeft: 15, marginRight: 15}}>
         <ProfileElement />
         <ProfileButtonElement />
-        {/* <ProfileList /> */}
+        <ProfileList />
       </ScrollView>
     </View>
   )

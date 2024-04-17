@@ -98,7 +98,7 @@ export default function Studio() {
             }}>
             Проекты образов
           </Text>
-          {/* <FlatList
+          <FlatList
             data={data}
             renderItem={({item}) => (
               <View
@@ -126,7 +126,7 @@ export default function Studio() {
                 </View>
                 <View style={[styles.shadowSmall, {right: '30%'}]}>
                   <TouchableOpacity>
-                    <DeleteIcon color="" />
+                    <DeleteIcon />
                   </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', marginTop: 30}}>
@@ -137,7 +137,7 @@ export default function Studio() {
                 </View>
               </View>
             )}
-          /> */}
+          />
         </View>
       </ScrollView>
       <BottomSheetModal
