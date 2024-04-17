@@ -7,13 +7,18 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {ProfileElement} from '../components/ProfileElement'
 import {ProfileButtonElement} from '../components/ProfileButtonElement'
 import {ProfileList} from '../components/ProfileList'
+// import {observer} from 'mobx-react-lite'
+// import {getUserStore} from '../hooks/getUserStore'
 
-export default function Profile(this: any) {
+// const userStore = getUserStore()
+
+export const ProfilePage = () => {
+  // console.log('ProfilePage', userStore.user)
   const insets = useSafeAreaInsets()
   const [data, setData] = useState<any>([])
   const getProfile = async () => {
     try {
-      const response = await fetch('http://localhost:3000/profile')
+      const response = await fetch('http://192.168.1.46:3000/profile')
       const json = await response.json()
       setData(json)
     } catch (error) {
@@ -22,6 +27,7 @@ export default function Profile(this: any) {
   }
   useEffect(() => {
     getProfile()
+    // userStore.getUseInfo()
   }, [])
   return (
     <View
@@ -44,7 +50,7 @@ export default function Profile(this: any) {
         style={{paddingTop: 15, marginLeft: 15, marginRight: 15}}>
         <ProfileElement />
         <ProfileButtonElement />
-        <ProfileList />
+        {/* <ProfileList /> */}
       </ScrollView>
     </View>
   )

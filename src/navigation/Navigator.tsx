@@ -9,7 +9,8 @@ import {TabBarStack} from './stacks/TabBarStack'
 import {CartPage} from '../screens/CartPage'
 import {SettingPage} from '../screens/SettingPage'
 import {LikePage} from '../screens/LikePage'
-import {NewImagePage} from '../screens/NewImagePage'
+import {NewCollagePage} from '../screens/NewCollagePage'
+import {AddItemStudioPage} from '../screens/AddItemStudioPage'
 
 const Stack = createNativeStackNavigator()
 
@@ -27,7 +28,8 @@ export const Navigator = () => {
         />
         {TabBarStack}
         <Stack.Screen name="Like" component={LikePage} />
-        <Stack.Screen name="NewImage" component={NewImagePage} />
+        <Stack.Screen name="NewImage" component={NewCollagePage} />
+        <Stack.Screen name="AddItemStudio" component={AddItemStudioPage} />
       </Stack.Navigator>
     </NavigationContainer>
   )

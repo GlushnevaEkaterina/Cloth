@@ -25,6 +25,7 @@ import BottomSheet, {
   BottomSheetModal,
   BottomSheetView,
 } from '@gorhom/bottom-sheet'
+import {GalleryIcon} from '../components/icons/GalleryIcon'
 export default function Studio() {
   const insents = useSafeAreaInsets()
 
@@ -37,9 +38,8 @@ export default function Studio() {
   const [data, setData] = useState<any>([])
   const getCollage = async () => {
     try {
-      const response = await fetch('http://localhost:3000/studio')
+      const response = await fetch('http://192.168.1.46:3000/studio')
       const json = await response.json()
-      console.log(json)
       setData(json)
     } catch (error) {
       console.error(error)
@@ -98,26 +98,26 @@ export default function Studio() {
             }}>
             Проекты образов
           </Text>
-          <FlatList
+          {/* <FlatList
             data={data}
             renderItem={({item}) => (
               <View
                 style={{
                   marginTop: 25,
                   marginBottom: 25,
+                  backgroundColor: 'white',
                 }}>
-                <TouchableOpacity style={{borderRadius: 150}}>
-                  <View style={styles.shadowBig}>
-                    <Image
-                      style={{
-                        flex: 1,
-                        height: 300,
-                        width: 300,
-                        borderRadius: 150,
-                      }}
-                      source={{uri: item.uri_collage}}
-                    />
-                  </View>
+                <TouchableOpacity
+                  style={[{borderRadius: 150}, styles.shadowBig]}>
+                  <Image
+                    style={{
+                      flex: 1,
+                      height: 300,
+                      width: 300,
+                      borderRadius: 150,
+                    }}
+                    source={{uri: item.uri_collage}}
+                  />
                 </TouchableOpacity>
                 <View style={[styles.shadowSmall, {left: '30%'}]}>
                   <TouchableOpacity>
@@ -126,7 +126,7 @@ export default function Studio() {
                 </View>
                 <View style={[styles.shadowSmall, {right: '30%'}]}>
                   <TouchableOpacity>
-                    <DeleteIcon />
+                    <DeleteIcon color="" />
                   </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', marginTop: 30}}>
@@ -137,7 +137,7 @@ export default function Studio() {
                 </View>
               </View>
             )}
-          />
+          /> */}
         </View>
       </ScrollView>
       <BottomSheetModal
@@ -162,7 +162,38 @@ export default function Studio() {
             styles.contentContainer,
             {paddingBottom: insents.bottom + 16},
           ]}>
-          <Text>Awesome 🎉</Text>
+          <View style={{flexDirection: 'row'}}>
+            <View style={styles.sheetButton}>
+              <View style={styles.sheetButtonBorder}>
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <CameraIcon />
+                  <Text style={{fontSize: 20, color: '#7286CF', marginTop: 10}}>
+                    Камера
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.sheetButton}>
+              <View style={styles.sheetButtonBorder}>
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <GalleryIcon color="#7286CF" />
+                  <Text style={{fontSize: 20, color: '#7286CF', marginTop: 10}}>
+                    Галлерея
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
         </BottomSheetView>
       </BottomSheetModal>
     </View>
@@ -222,5 +253,16 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'center',
+  },
+  sheetButton: {
+    flex: 0.5,
+    height: 150,
+    padding: 20,
+  },
+  sheetButtonBorder: {
+    flex: 1,
+    borderColor: '#7286CF',
+    borderWidth: 1,
+    borderRadius: 20,
   },
 })

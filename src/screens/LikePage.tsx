@@ -34,7 +34,7 @@ export const LikePage: FC<ILikePage> = () => {
   const [data, setData] = useState<any>([])
   const getLikes = async () => {
     try {
-      const response = await fetch('http://localhost:3000/profile/like')
+      const response = await fetch('http://192.168.1.46:3000/profile/like')
       const json = await response.json()
       setData(json)
     } catch (error) {
