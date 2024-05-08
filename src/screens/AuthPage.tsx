@@ -16,8 +16,6 @@ import {SkipButton} from '../components/SkipButton'
 const logo = {uri: 'https://cdn-icons-png.flaticon.com/512/2960/2960527.png'}
 
 const AuthPage = () => {
-  const insets = useSafeAreaInsets()
-
   const handleNavigateToRegister = () => {
     Navigation.navigate('Registration')
   }

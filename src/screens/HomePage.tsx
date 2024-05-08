@@ -20,6 +20,7 @@ import {SaleIcon} from '../components/icons/SaleIcon'
 import {SaerchElement} from '../components/SearchElement'
 import {CartElement} from '../components/CartElement'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import {ScreenConteiner} from '../components/global/ScreenConteiner'
 
 const WomenRoute = () => (
   <ScrollView showsVerticalScrollIndicator={false}>
@@ -60,7 +61,6 @@ const renderScene = SceneMap({
 
 export default function HomePage() {
   const layout = useWindowDimensions()
-  const insets = useSafeAreaInsets()
   const [index, setIndex] = React.useState(0)
   const [routes] = React.useState([
     {key: 'first', title: 'ЖЕНИЩИНАМ'},
@@ -68,15 +68,7 @@ export default function HomePage() {
   ])
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          paddingTop: insets.top,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
-        },
-      ]}>
+    <ScreenConteiner>
       <View
         style={{
           flexDirection: 'row',
@@ -112,7 +104,7 @@ export default function HomePage() {
           />
         )}
       />
-    </View>
+    </ScreenConteiner>
   )
 }
 

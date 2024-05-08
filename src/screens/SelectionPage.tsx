@@ -1,9 +1,10 @@
 import React from 'react'
 import {Text, View} from 'react-native'
+import {ScreenConteiner} from '../components/global/ScreenConteiner'
 export default function Selection() {
   return (
-    <View style={{flex: 1}}>
+    <ScreenConteiner>
       <Text>Selection Page</Text>
-    </View>
+    </ScreenConteiner>
   )
 }

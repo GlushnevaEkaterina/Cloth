@@ -26,6 +26,7 @@ import BottomSheet, {
   BottomSheetView,
 } from '@gorhom/bottom-sheet'
 import {GalleryIcon} from '../components/icons/GalleryIcon'
+import {ScreenConteiner} from '../components/global/ScreenConteiner'
 export default function Studio() {
   const insents = useSafeAreaInsets()
 
@@ -50,14 +51,7 @@ export default function Studio() {
   }, [])
 
   return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: insents.top,
-        paddingLeft: insents.left,
-        paddingRight: insents.right,
-        backgroundColor: '#FFFFFF',
-      }}>
+    <ScreenConteiner>
       <HeadElement
         name="Студия"
         iconRight={<CartElement />}
@@ -126,7 +120,7 @@ export default function Studio() {
                 </View>
                 <View style={[styles.shadowSmall, {right: '30%'}]}>
                   <TouchableOpacity>
-                    <DeleteIcon />
+                    <DeleteIcon color="" />
                   </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, alignItems: 'center', marginTop: 30}}>
@@ -196,7 +190,7 @@ export default function Studio() {
           </View>
         </BottomSheetView>
       </BottomSheetModal>
-    </View>
+    </ScreenConteiner>
   )
 }
 

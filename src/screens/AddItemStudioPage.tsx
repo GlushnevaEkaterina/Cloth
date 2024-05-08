@@ -13,6 +13,7 @@ import {HeadElement} from '../components/HeadElement'
 import {ArrowLeftIcon} from '../components/icons/ArrowLeftIcon'
 import Navigation from '../navigation/Navigation'
 import {useRoute} from '@react-navigation/native'
+import {ScreenConteiner} from '../components/global/ScreenConteiner'
 
 interface IAddItemStudioPage {}
 
@@ -45,15 +46,7 @@ export const AddItemStudioPage: FC<IAddItemStudioPage> = () => {
     getLikes()
   }, [])
   return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: insents.top,
-        paddingLeft: insents.left,
-        paddingBottom: insents.bottom,
-        paddingRight: insents.right,
-        backgroundColor: '#FFFFFF',
-      }}>
+    <ScreenConteiner>
       <HeadElement
         name="Выбор изображения"
         iconLeft={
@@ -83,7 +76,7 @@ export const AddItemStudioPage: FC<IAddItemStudioPage> = () => {
           </View>
         )}
       />
-    </View>
+    </ScreenConteiner>
   )
 }
 

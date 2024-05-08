@@ -13,19 +13,20 @@ import {PlusIcon} from '../components/icons/PlusIcon'
 import {CheckIcon} from '../components/icons/CheckIcon'
 import Navigation from '../navigation/Navigation'
 import {Bottoms} from '../components/callagePage/Bottom'
+import {Canvas} from '../components/callagePage/Canvas'
+import {ScreenConteiner} from '../components/global/ScreenConteiner'
 
 interface INewCollagePage {}
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('screen').height
-const insets = useSafeAreaInsets()
+
 export const NewCollagePage: FC<INewCollagePage> = () => {
   const handleNavigateToStudio = () => {
-    Navigation.navigate('Studio')
+    Navigation.goBack()
   }
   const handleNavigateToAddItem = () => {
     Navigation.navigate('AddItemStudio', {handleAddImage})
   }
-
   const [images, setImage] = useState<string[]>([])
   const handleAddImage = (image: string) => {
     setImage([...images, image])
@@ -35,49 +36,33 @@ export const NewCollagePage: FC<INewCollagePage> = () => {
     for (let i = 0; i < images.length; i++) {}
   }
 
-  // const start = useSharedValue({x: 0, y: 0})
-  // const offset = useSharedValue({x: 0, y: 0})
-  // const isPressed = useSharedValue(false)
-  // const tap = Gesture.Tap().onStart(() => {
-  //   isPressed.value = !isPressed.value
-  // })
-
   return (
-    <View style={styles.view}>
-      <HeadElement
-        name="Новый образ"
-        iconLeft={
-          <TouchableOpacity onPress={handleNavigateToStudio}>
-            <ArrowLeftIcon color="" />
-          </TouchableOpacity>
-        }
-        iconRight={
-          <TouchableOpacity>
-            <CheckIcon />
-          </TouchableOpacity>
-        }
-      />
-      <Image
-        source={{uri: images[1]}}
+    <ScreenConteiner>
+      <View style={{zIndex: 2, backgroundColor: '#FFFFFF'}}>
+        <HeadElement
+          name="Новый образ"
+          iconLeft={
+            <TouchableOpacity onPress={handleNavigateToStudio}>
+              <ArrowLeftIcon color="" />
+            </TouchableOpacity>
+          }
+          iconRight={
+            <TouchableOpacity>
+              <CheckIcon />
+            </TouchableOpacity>
+          }
+        />
+      </View>
+      <View style={{zIndex: 1, flex: 1}}>
+        <Canvas />
+      </View>
+      <View
         style={{
-          height: 150,
-          width: 150,
-          position: 'absolute',
-          left: WIDTH / 3,
-          top: HEIGHT / 4,
-        }}
-      />
-      <Image
-        source={{uri: images[0]}}
-        style={{
-          height: 150,
-          width: 150,
-          position: 'absolute',
-          left: WIDTH / 2,
-          top: HEIGHT / 4,
-        }}
-      />
-      <View style={{flex: 1, justifyContent: 'flex-end'}}>
+          flex: 0.37,
+          justifyContent: 'flex-end',
+          backgroundColor: '#FFFFFF',
+          zIndex: 3,
+        }}>
         <View
           style={{
             flexDirection: 'row',
@@ -90,17 +75,8 @@ export const NewCollagePage: FC<INewCollagePage> = () => {
         </View>
         <Bottoms />
       </View>
-    </View>
+    </ScreenConteiner>
   )
 }
 
-const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    paddingTop: insets.top,
-    paddingLeft: insets.left,
-    paddingRight: insets.right,
-    paddingBottom: insets.bottom,
-  },
-})
+const styles = StyleSheet.create({})

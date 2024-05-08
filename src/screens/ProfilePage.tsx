@@ -7,14 +7,14 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {ProfileElement} from '../components/ProfileElement'
 import {ProfileButtonElement} from '../components/ProfileButtonElement'
 import {ProfileList} from '../components/ProfileList'
-// import {observer} from 'mobx-react-lite'
-// import {getUserStore} from '../hooks/getUserStore'
+import {observer} from 'mobx-react-lite'
+import {getUserStore} from '../hooks/getUserStore'
+import {ScreenConteiner} from '../components/global/ScreenConteiner'
 
-// const userStore = getUserStore()
+const userStore = getUserStore()
 
 export const ProfilePage = () => {
-  // console.log('ProfilePage', userStore.user)
-  const insets = useSafeAreaInsets()
+  console.log('ProfilePage', userStore.user)
   const [data, setData] = useState<any>([])
   const getProfile = async () => {
     try {
@@ -27,17 +27,10 @@ export const ProfilePage = () => {
   }
   useEffect(() => {
     getProfile()
-    // userStore.getUseInfo()
+    userStore.getUseInfo()
   }, [])
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        paddingTop: insets.top,
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
-      }}>
+    <ScreenConteiner>
       <View>
         <HeadElement
           name={data.nik_name}
@@ -52,6 +45,6 @@ export const ProfilePage = () => {
         <ProfileButtonElement />
         <ProfileList />
       </ScrollView>
-    </View>
+    </ScreenConteiner>
   )
 }

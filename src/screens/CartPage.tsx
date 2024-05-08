@@ -20,7 +20,8 @@ import Animated, {
 } from 'react-native-reanimated'
 
 export const CartPage = () => {
-  const uri1 = {
+  const [data, setData] = useState<any>([])
+  let uri1 = {
     id: 1,
     uri: 'https://solonoi.ru/assets/img/home/4%20%D0%9C%D1%83%D0%B6%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D0%BA%D0%B0.jpg',
     x: 0,
@@ -92,7 +93,6 @@ export const CartPage = () => {
         x: offset.value.x,
         y: offset.value.y,
       }
-      console.log(start.value.x)
     })
     .onTouchesDown((_, state) => {
       if (!isPress.value) {
