@@ -1,39 +1,45 @@
-import React, {FC, useState} from 'react'
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import React, {FC, useEffect, useState} from 'react'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {HeadElement} from '../components/HeadElement'
 import {ArrowLeftIcon} from '../components/icons/ArrowLeftIcon'
 import {PlusIcon} from '../components/icons/PlusIcon'
 import {CheckIcon} from '../components/icons/CheckIcon'
 import Navigation from '../navigation/Navigation'
-import {Bottoms} from '../components/callagePage/Bottom'
+import {Bottom} from '../components/callagePage/Bottom'
 import {Canvas} from '../components/callagePage/Canvas'
 import {ScreenConteiner} from '../components/global/ScreenConteiner'
+import {observer} from 'mobx-react-lite'
+import {getCollageStore} from '../hooks/getCollageStore'
 
 interface INewCollagePage {}
-const WIDTH = Dimensions.get('window').width
-const HEIGHT = Dimensions.get('screen').height
 
-export const NewCollagePage: FC<INewCollagePage> = () => {
+const collageStore = getCollageStore()
+
+export const NewCollagePage: FC<INewCollagePage> = observer(() => {
+  const [selectedItem, setSelectItem] = useState<number | null>(null)
+
+  useEffect(() => {
+    return () => {
+      collageStore.resetCollage()
+    }
+  }, [])
+
   const handleNavigateToStudio = () => {
     Navigation.goBack()
   }
   const handleNavigateToAddItem = () => {
-    Navigation.navigate('AddItemStudio', {handleAddImage})
+    Navigation.navigate('AddItemStudio')
   }
-  const [images, setImage] = useState<string[]>([])
-  const handleAddImage = (image: string) => {
-    setImage([...images, image])
+  const handleSelectItem = (id: number) => {
+    setSelectItem(id)
   }
-  console.log(images)
-  const layerBelow = () => {
-    for (let i = 0; i < images.length; i++) {}
+
+  const handleDownCollageItem = () => {
+    collageStore.downCollageItem(selectedItem)
+  }
+
+  const handleUpCollageItem = () => {
+    collageStore.upCollageItem(selectedItem)
   }
 
   return (
@@ -54,7 +60,7 @@ export const NewCollagePage: FC<INewCollagePage> = () => {
         />
       </View>
       <View style={{zIndex: 1, flex: 1}}>
-        <Canvas />
+        <Canvas selectedItem={selectedItem} onSelectItem={handleSelectItem} />
       </View>
       <View
         style={{
@@ -73,10 +79,13 @@ export const NewCollagePage: FC<INewCollagePage> = () => {
             <PlusIcon />
           </TouchableOpacity>
         </View>
-        <Bottoms />
+        <Bottom
+          onDownCollageItem={handleDownCollageItem}
+          onUpCollageItem={handleUpCollageItem}
+        />
       </View>
     </ScreenConteiner>
   )
-}
+})
 
 const styles = StyleSheet.create({})

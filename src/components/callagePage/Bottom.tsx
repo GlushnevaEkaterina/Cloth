@@ -7,9 +7,12 @@ import {ArrowDownIcon} from '../icons/ArrowDownIcon'
 import {ArrowUpIcon} from '../icons/ArrowUpIcon'
 import {ScissorsIcon} from '../icons/ScissorsIcon'
 
-interface IBottom {}
+interface IBottom {
+  onUpCollageItem: () => void
+  onDownCollageItem: () => void
+}
 
-export const Bottoms: FC<IBottom> = () => {
+export const Bottom: FC<IBottom> = props => {
   return (
     <View>
       <View
@@ -57,12 +60,14 @@ export const Bottoms: FC<IBottom> = () => {
               borderColor: '#D6D6D6',
             },
           ]}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={props.onDownCollageItem}>
             <ArrowDownIcon />
             <Text style={styles.text}>Слоем ниже</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={props.onUpCollageItem}>
           <ArrowUpIcon />
           <Text style={styles.text}>Слоем выше</Text>
         </TouchableOpacity>

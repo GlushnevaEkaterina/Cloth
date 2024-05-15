@@ -39,7 +39,8 @@ export default function Studio() {
   const [data, setData] = useState<any>([])
   const getCollage = async () => {
     try {
-      const response = await fetch('http://192.168.1.46:3000/studio')
+      // const response = await fetch('http://192.168.1.47:3000/studio')
+      const response = await fetch('http://192.168.1.104:3000/studio')
       const json = await response.json()
       setData(json)
     } catch (error) {

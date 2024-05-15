@@ -1,84 +1,86 @@
-import React, {FC, useEffect, useState} from 'react'
+import React, {FC, useEffect} from 'react'
 import {
+  ActivityIndicator,
   Dimensions,
   FlatList,
   Image,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {HeadElement} from '../components/HeadElement'
 import {ArrowLeftIcon} from '../components/icons/ArrowLeftIcon'
 import Navigation from '../navigation/Navigation'
-import {useRoute} from '@react-navigation/native'
 import {ScreenConteiner} from '../components/global/ScreenConteiner'
+import {observer} from 'mobx-react-lite'
+import {getCollageStore} from '../hooks/getCollageStore'
 
 interface IAddItemStudioPage {}
 
 const WIDTH = Dimensions.get('window').width
 const HEIGHT = Dimensions.get('screen').height
 
-export const AddItemStudioPage: FC<IAddItemStudioPage> = () => {
-  const params = useRoute().params as any
-  const handleNavigateToNewImage = () => {
-    Navigation.navigate('NewImage')
-    params.handleAddImage()
+const collageStore = getCollageStore()
+
+export const AddItemStudioPage: FC<IAddItemStudioPage> = observer(() => {
+  const handleGoBack = () => {
+    Navigation.goBack()
   }
   const handleAddToNewImage = (image: string) => {
     Navigation.navigate('NewImage')
-    params.handleAddImage(image)
   }
-  const insents = useSafeAreaInsets()
-  const [data, setData] = useState<any>([])
-  const getLikes = async () => {
-    try {
-      const response = await fetch('http://192.168.1.46:3000/profile/like')
-      const json = await response.json()
-      console.log(json)
-      setData(json)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+
   useEffect(() => {
-    getLikes()
+    collageStore.getAddItemCollage()
+
+    return () => {
+      collageStore.resetAddItem()
+    }
   }, [])
-  return (
-    <ScreenConteiner>
-      <HeadElement
-        name="Выбор изображения"
-        iconLeft={
-          <TouchableOpacity onPress={handleNavigateToNewImage}>
-            <ArrowLeftIcon color="" />
-          </TouchableOpacity>
-        }
-        iconRight={<ArrowLeftIcon color="#FFFFFF" />}
-      />
-      <FlatList
-        data={data}
-        numColumns={3}
-        renderItem={({item}) => (
-          <View style={styles.item}>
-            <TouchableOpacity
-              style={{
-                flex: 1,
-              }}
-              onPress={() => {
-                handleAddToNewImage(item.uri_image)
-              }}>
-              <Image
-                source={{uri: item.uri_image}}
-                style={{flex: 1, height: HEIGHT / 4, width: WIDTH / 3}}
-              />
+
+  if (collageStore.isCollageLoading) {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <ActivityIndicator size={'large'} />
+      </View>
+    )
+  } else {
+    return (
+      <ScreenConteiner>
+        <HeadElement
+          name="Выбор изображения"
+          iconLeft={
+            <TouchableOpacity onPress={handleGoBack}>
+              <ArrowLeftIcon color="" />
             </TouchableOpacity>
-          </View>
-        )}
-      />
-    </ScreenConteiner>
-  )
-}
+          }
+          iconRight={<ArrowLeftIcon color="#FFFFFF" />}
+        />
+        <FlatList
+          data={collageStore.items}
+          numColumns={3}
+          renderItem={({item}) => (
+            <View style={styles.item}>
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                }}
+                onPress={() => {
+                  collageStore.setCollage(item)
+                  handleAddToNewImage(item.uri_image)
+                }}>
+                <Image
+                  source={{uri: item.uri_image}}
+                  style={{flex: 1, height: HEIGHT / 4, width: WIDTH / 3}}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+      </ScreenConteiner>
+    )
+  }
+})
 
 const styles = StyleSheet.create({
   item: {

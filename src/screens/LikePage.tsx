@@ -27,14 +27,18 @@ const userStore = getUserStore()
 
 export const LikePage: FC = observer(() => {
   const layout = useWindowDimensions()
+
   const [index, setIndex] = React.useState(0)
+
   const [routes] = React.useState([
     {key: 'first', title: 'ВЕЩИ'},
     {key: 'second', title: 'ОБРАЗЫ'},
   ])
+
   const handleNavigateToProfile = () => {
     Navigation.goBack()
   }
+
   useEffect(() => {
     userStore.getLikes()
 
@@ -42,6 +46,7 @@ export const LikePage: FC = observer(() => {
       userStore.resetLikes()
     }
   }, [])
+
   const ItemsRout = () => {
     if (userStore.isLikeLoading) {
       return (
