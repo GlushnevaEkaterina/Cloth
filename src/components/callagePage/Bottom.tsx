@@ -10,6 +10,9 @@ import {ScissorsIcon} from '../icons/ScissorsIcon'
 interface IBottom {
   onUpCollageItem: () => void
   onDownCollageItem: () => void
+  onDeleteCollageItem: () => void
+  onFlipCollageItem: () => void
+  onCopyCollageItem: () => void
 }
 
 export const Bottom: FC<IBottom> = props => {
@@ -36,18 +39,24 @@ export const Bottom: FC<IBottom> = props => {
               borderColor: '#D6D6D6',
             },
           ]}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={props.onFlipCollageItem}>
             <FlipIcon />
             <Text style={styles.text}>Отразить</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={props.onCopyCollageItem}>
           <CopyIcon />
           <Text style={styles.text}>Скопировать</Text>
         </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row', height: 70}}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={props.onDeleteCollageItem}>
           <DeleteIcon color="#EF7A7D" />
           <Text style={styles.text}>Удалить</Text>
         </TouchableOpacity>

@@ -1,10 +1,11 @@
-import React, {FC} from 'react'
+import React, {FC, useEffect} from 'react'
 import {Image, StyleSheet, View} from 'react-native'
 import {Gesture, GestureDetector} from 'react-native-gesture-handler'
 import Animated, {
   SharedValue,
   useAnimatedStyle,
   useSharedValue,
+  withTiming,
 } from 'react-native-reanimated'
 import {ItemCollage} from '../../modules/collage/models/ItemCollage'
 
@@ -21,8 +22,14 @@ export const CanvasItem: FC<ICanvasItem> = props => {
   const savedScale = useSharedValue(props.item.scale)
   const rotation = useSharedValue(props.item.rotation)
   const savedRotation = useSharedValue(0)
+  const flip = useSharedValue(1)
+
+  useEffect(() => {
+    flip.value = withTiming(props.item.flip)
+  }, [props.item.flip])
 
   console.log('start', start.value)
+  console.log('flip', flip)
 
   const tap = Gesture.Tap()
     .onStart(() => {
@@ -85,15 +92,20 @@ export const CanvasItem: FC<ICanvasItem> = props => {
 
   const gesture = Gesture.Simultaneous(pan, tap, pinchGesture, rotationGesture)
   const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+
     return {
       transform: [
         {translateX: offset.value.x},
         {translateY: offset.value.y},
         {scale: scale.value},
         {rotateZ: `${(rotation.value / Math.PI) * 180}deg`},
+        {scaleX: flip.value},
       ],
     }
   }, [])
+
+  // console.log('props.item.flip', props.item.flip)
 
   return (
     <GestureDetector gesture={gesture}>

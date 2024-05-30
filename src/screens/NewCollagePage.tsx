@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {HeadElement} from '../components/HeadElement'
 import {ArrowLeftIcon} from '../components/icons/ArrowLeftIcon'
 import {PlusIcon} from '../components/icons/PlusIcon'
@@ -10,6 +10,7 @@ import {Canvas} from '../components/callagePage/Canvas'
 import {ScreenConteiner} from '../components/global/ScreenConteiner'
 import {observer} from 'mobx-react-lite'
 import {getCollageStore} from '../hooks/getCollageStore'
+import {FlatList} from 'react-native-gesture-handler'
 
 interface INewCollagePage {}
 
@@ -30,6 +31,9 @@ export const NewCollagePage: FC<INewCollagePage> = observer(() => {
   const handleNavigateToAddItem = () => {
     Navigation.navigate('AddItemStudio')
   }
+  const handleNavigateToSave = () => {
+    Navigation.navigate('SaveCollage')
+  }
   const handleSelectItem = (id: number) => {
     setSelectItem(id)
   }
@@ -40,6 +44,15 @@ export const NewCollagePage: FC<INewCollagePage> = observer(() => {
 
   const handleUpCollageItem = () => {
     collageStore.upCollageItem(selectedItem)
+  }
+  const handleDeleteCollageItem = () => {
+    collageStore.deleteCollageItem(selectedItem)
+  }
+  const handleFlipCollageItem = () => {
+    collageStore.flipCollageItem(selectedItem)
+  }
+  const handleCopyCollageItem = () => {
+    collageStore.copyCollageItem(selectedItem)
   }
 
   return (
@@ -53,7 +66,7 @@ export const NewCollagePage: FC<INewCollagePage> = observer(() => {
             </TouchableOpacity>
           }
           iconRight={
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleNavigateToSave}>
               <CheckIcon />
             </TouchableOpacity>
           }
@@ -78,10 +91,30 @@ export const NewCollagePage: FC<INewCollagePage> = observer(() => {
           <TouchableOpacity onPress={handleNavigateToAddItem}>
             <PlusIcon />
           </TouchableOpacity>
+          <FlatList
+            horizontal
+            data={collageStore.collage}
+            renderItem={({item}) => (
+              <View
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 1,
+                }}>
+                <Image
+                  style={{height: 28, width: (28 * item.width) / item.height}}
+                  source={{uri: item.uri_image}}
+                />
+              </View>
+            )}
+          />
         </View>
         <Bottom
           onDownCollageItem={handleDownCollageItem}
           onUpCollageItem={handleUpCollageItem}
+          onDeleteCollageItem={handleDeleteCollageItem}
+          onFlipCollageItem={handleFlipCollageItem}
+          onCopyCollageItem={handleCopyCollageItem}
         />
       </View>
     </ScreenConteiner>

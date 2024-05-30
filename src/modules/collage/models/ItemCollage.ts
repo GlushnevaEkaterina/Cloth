@@ -8,6 +8,7 @@ export class ItemCollage {
   rotation: number = 0
   scale: number = 1
   zindex: number
+  flip: number = 1
 
   constructor(props: any) {
     this.id = props.id

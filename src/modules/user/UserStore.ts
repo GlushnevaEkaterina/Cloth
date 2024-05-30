@@ -53,6 +53,7 @@ export class UserStore {
       .finally(() => {
         this.setLikeLoading(false)
       })
+    console.log(this.likes)
   }
 
   resetLikes = () => {

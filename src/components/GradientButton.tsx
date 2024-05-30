@@ -24,12 +24,6 @@ export const GradientButton: FC<IGradientButton> = props => {
         style={{
           flex: 1,
           borderRadius: 30,
-          paddingTop: 15,
-          paddingBottom: 8,
-          paddingHorizontal: 40,
-          paddingVertical: 10,
-          paddingEnd: 40,
-          paddingStart: 40,
           alignItems: 'center',
           justifyContent: 'center',
         }}>
