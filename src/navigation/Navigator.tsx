@@ -12,6 +12,7 @@ import {LikePage} from '../screens/LikePage'
 import {NewCollagePage} from '../screens/NewCollagePage'
 import {AddItemStudioPage} from '../screens/AddItemStudioPage'
 import {SaveCollage} from '../screens/SaveCollage'
+import {CollageElement} from '../screens/CollageElement'
 
 const Stack = createNativeStackNavigator()
 
@@ -32,6 +33,7 @@ export const Navigator = () => {
         <Stack.Screen name="NewImage" component={NewCollagePage} />
         <Stack.Screen name="AddItemStudio" component={AddItemStudioPage} />
         <Stack.Screen name="SaveCollage" component={SaveCollage} />
+        <Stack.Screen name="ScissorsElement" component={CollageElement} />
       </Stack.Navigator>
     </NavigationContainer>
   )

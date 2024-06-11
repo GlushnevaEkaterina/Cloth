@@ -6,6 +6,10 @@ import {DeleteIcon} from '../icons/DeleteIcon'
 import {ArrowDownIcon} from '../icons/ArrowDownIcon'
 import {ArrowUpIcon} from '../icons/ArrowUpIcon'
 import {ScissorsIcon} from '../icons/ScissorsIcon'
+import Navigation from '../../navigation/Navigation'
+import {getCollageStore} from '../../hooks/getCollageStore'
+
+const collageStore = getCollageStore()
 
 interface IBottom {
   onUpCollageItem: () => void
@@ -13,9 +17,13 @@ interface IBottom {
   onDeleteCollageItem: () => void
   onFlipCollageItem: () => void
   onCopyCollageItem: () => void
+  id: number | null
 }
 
 export const Bottom: FC<IBottom> = props => {
+  const handleToScissorsElement = () => {
+    Navigation.navigate('ScissorsElement')
+  }
   return (
     <View>
       <View
@@ -26,7 +34,11 @@ export const Bottom: FC<IBottom> = props => {
           borderBottomWidth: 1,
           borderTopWidth: 1,
         }}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            handleToScissorsElement()
+          }}>
           <ScissorsIcon />
           <Text style={styles.text}>Убрать фон</Text>
         </TouchableOpacity>

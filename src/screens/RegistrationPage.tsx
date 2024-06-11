@@ -14,6 +14,9 @@ import Navigation from '../navigation/Navigation'
 import {SkipButton} from '../components/SkipButton'
 import {WomanIcon} from '../components/icons/WomanIcon'
 import {ManIcon} from '../components/icons/ManIcon'
+import {getUserStore} from '../hooks/getUserStore'
+
+const userStore = getUserStore()
 
 export const Registration = () => {
   const insets = useSafeAreaInsets()
@@ -21,6 +24,10 @@ export const Registration = () => {
     Navigation.navigate('DetermBodyTypePage')
   }
   const [isMan, setMen] = useState(false)
+  const [name, onChangeName] = useState<string>('')
+  const [email, onChangeEmail] = useState<string>('')
+  const [password, onChangePassword] = useState<string>('')
+
   const handleMan = (value: number) => {
     if (value == 0 && isMan == true) {
       setMen(!isMan)
@@ -29,6 +36,19 @@ export const Registration = () => {
       setMen(!isMan)
     }
   }
+
+  const handleCreateUser = () => {
+    let sex
+    if (isMan) {
+      sex = 'man'
+    } else {
+      sex = 'woman'
+    }
+    console.log(name, password, email, sex)
+    userStore.createUser(name, password, email, sex)
+    Navigation.goBack()
+  }
+
   return (
     <LinearGradient
       colors={['#3E97F7', '#AB73ED']}
@@ -56,6 +76,7 @@ export const Registration = () => {
           <TextInput
             style={[Styles.input, {flex: 0.9, marginRight: 0}]}
             placeholder="Name"
+            onChangeText={onChangeName}
             placeholderTextColor={'#FFFFFF'}></TextInput>
           <TouchableOpacity
             onPress={() => {
@@ -75,15 +96,15 @@ export const Registration = () => {
         <TextInput
           style={Styles.input}
           placeholder="Email"
+          onChangeText={onChangeEmail}
           placeholderTextColor={'#FFFFFF'}></TextInput>
         <TextInput
           style={Styles.input}
           placeholder="Password"
+          onChangeText={onChangePassword}
           placeholderTextColor={'#FFFFFF'}
           secureTextEntry={true}></TextInput>
-        <TouchableOpacity
-          style={Styles.button}
-          onPress={handleNavigateToDeterm}>
+        <TouchableOpacity style={Styles.button} onPress={handleCreateUser}>
           <Text style={Styles.textButton}>Создать аккаунт</Text>
         </TouchableOpacity>
       </View>

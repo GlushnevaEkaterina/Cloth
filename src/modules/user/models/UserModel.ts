@@ -1,11 +1,11 @@
 export class User {
   id: number
   login: string
-  name: string
+  password: string
 
   constructor(userResponse: any) {
     this.id = userResponse.id
     this.login = userResponse.login
-    this.name = userResponse.name
+    this.password = userResponse.password
   }
 }

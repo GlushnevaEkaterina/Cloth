@@ -27,6 +27,11 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet'
 import {GalleryIcon} from '../components/icons/GalleryIcon'
 import {ScreenConteiner} from '../components/global/ScreenConteiner'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import {getCollageStore} from '../hooks/getCollageStore'
+
+const collageStore = getCollageStore()
+
 export default function Studio() {
   const insents = useSafeAreaInsets()
 
@@ -36,19 +41,8 @@ export default function Studio() {
     Navigation.navigate('NewImage')
   }
 
-  const [data, setData] = useState<any>([])
-  const getCollage = async () => {
-    try {
-      // const response = await fetch('http://192.168.1.47:3000/studio')
-      const response = await fetch('http://192.168.1.104:3000/studio')
-      const json = await response.json()
-      setData(json)
-    } catch (error) {
-      console.error(error)
-    }
-  }
   useEffect(() => {
-    getCollage()
+    collageStore.getCollage
   }, [])
 
   return (
@@ -80,7 +74,7 @@ export default function Studio() {
                 start={{x: 0, y: 1}}
                 end={{x: 1, y: 0}}
                 style={styles.gradientCamera}>
-                <CameraIcon />
+                <CameraIcon color="#FFFFFF" />
               </LinearGradient>
             </TouchableOpacity>
           </View>
@@ -94,7 +88,7 @@ export default function Studio() {
             Проекты образов
           </Text>
           <FlatList
-            data={data}
+            data={collageStore.data}
             renderItem={({item}) => (
               <View
                 style={{
@@ -166,7 +160,7 @@ export default function Studio() {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <CameraIcon />
+                  <CameraIcon color="#7286CF" />
                   <Text style={{fontSize: 20, color: '#7286CF', marginTop: 10}}>
                     Камера
                   </Text>

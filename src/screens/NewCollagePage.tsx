@@ -115,6 +115,7 @@ export const NewCollagePage: FC<INewCollagePage> = observer(() => {
           onDeleteCollageItem={handleDeleteCollageItem}
           onFlipCollageItem={handleFlipCollageItem}
           onCopyCollageItem={handleCopyCollageItem}
+          id={selectedItem}
         />
       </View>
     </ScreenConteiner>

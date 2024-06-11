@@ -105,8 +105,6 @@ export const CanvasItem: FC<ICanvasItem> = props => {
     }
   }, [])
 
-  // console.log('props.item.flip', props.item.flip)
-
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View
